@@ -1,0 +1,66 @@
+#从string中找出符合pat的
+#以普通打印字符作为原子
+import re
+pat="yue"
+string="huiyuejih"
+rst1=re.search(pat,string)
+print(rst1)
+<re.Match object; span=(3, 6), match='yue'>
+
+#非打印字符作为原子（\t,\n）
+#换行用三引号
+#就可以被\n索引到
+pat2="\n"
+string3='''njknkfefe
+ferfrefreg'''
+rst3=re.search(pat2,string3)
+print(rst3)
+<re.Match object; span=(9, 10), match='\n'>
+
+#通用字符作为原子
+# \w可以匹配任何字母数字下划线等非特殊字符
+# \W可以匹配任何\w相反的
+#\d可以匹配任何十进制数
+# \D可以匹配任何\d相反的
+#\s可以匹配空白字符
+# \S可以匹配任何\s相反的
+pat="\w\dpython\w"#非特殊字符+十进制数+python+非特殊字符
+string="gyer3ugj8python678ghj"
+rst4=re.search(pat,string)
+print(rst4)
+#可用来匹配电话号码
+<re.Match object; span=(7, 16), match='j8python6'>
+
+#原子表#
+#用[]括起来
+​
+#案例：
+#wdp[ywr]honw表示匹配在wdp与honw中任意一位，
+#可以是y可以是w也可以是r，如'wdpwhonw'
+​
+pat="wdp[ytrewr]honw"
+string="gyewwdpwhonwdpr3ytugj8pyhonwtython678ghj"
+rst=re.search(pat,string)
+print(rst)
+<re.Match object; span=(4, 12), match='wdpwhonw'>
+
+#元字符（正则表达式中具有特殊含义的字符）
+#如.可以匹配除换行符外的任何字符 
+pat=".wdp"
+string="gye3wdphonw"
+rst=re.search(pat,string)
+print(rst)
+#$匹配结束的位置 
+#‘*’用来匹配出现零一多次 ，？用来匹配出现零或一次，+匹配一次或多次
+#t{6}表示匹配t元素出现6次，t{6，}表示匹配t元素至少出现6次
+#t{4，7}表示t元素出现至少4次最多7次
+#（）提取表达式中的内容括起来
+
+<re.Match object; span=(3, 7), match='3wdp'>
+
+#t|s表示t或者s(若两个都匹配先匹配第一个)
+pat="wdp|rew"
+string="gye3wdphonw"
+rst=re.search(pat,string)
+print(rst)
+<re.Match object; span=(4, 7), match='wdp'>
