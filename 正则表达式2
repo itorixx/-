@@ -1,0 +1,49 @@
+
+
+#模式修正符
+#在不改变正则表达式的情况下
+#通过模式修正符改变正则表达式的含义实现匹配结果的调整
+#一般正则表达式是区分大小写的
+#I可以忽略大小写，U运用Unicode解析字符，S让.也匹配换行符
+#M可以进行多行匹配，L进行本地化识别匹配
+​
+#re.I案例：
+pat1="python"
+pat2="python"
+string="ffbhjwebfjPython"
+rst=re.search(pat2,string,re.I)
+print(rst)
+#在不改变正则表达式的情况下
+#通过模式修正符改变正则表达式的含义实现匹配结果的调整
+<re.Match object; span=(10, 16), match='Python'>
+
+#贪婪模式（范围广）：尽可能多的匹配，从第一个合适的匹配到最后一个
+#懒惰模式（更精准）：尽可能少的匹配 只匹配第一个
+pat1="p.*y"#.*表示字符的内容和个数都不限（贪婪模式）
+pat2="p.*？y"#多了个？ （懒惰模式）
+string="ffbpyhjwebfjPythonpy"
+rst1=re.search(pat1,string)
+print(rst1)
+rst2=re.search(pat2,string)
+print(rst2)
+<re.Match object; span=(3, 20), match='pyhjwebfjPythonpy'>
+None
+
+#正则表达式函数
+#包括re.match()函数，re.search()函数，re.sub()函数，全局匹配函数
+ #re.search()函数只匹配不要求位置，但只能出现一个结果，类似懒惰模式
+rst=re.searh(pat1,string)
+print(rst)
+#re.match()函数要求位置,第一个不是第一个元素就none
+rst=re.match(pat1,string)
+print(rst)
+#全局匹配函数(匹配所有符合要求的字段)
+rst=re.compile(pat1).findall(string)
+print(rst)
+
+#匹配网址
+pat="[a-zA-Z]+://[^\s]*[.com|.cn]"
+string='<a href="http://www.baidu.com>hasghj</a>'
+rst=re.compile(pat).findall(string)
+print(rst)
+['http://www.baidu.com']
